@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinese Word Order Game</title>
+  <link rel="stylesheet" href="./wordle chinese.css">
+</head>
+<body>
+
+  <div class="game">
+
+    <!-- LANGUAGE SWITCHER -->
+    <div class="language">
+      <button id="thaiBtn" onclick="changeLanguage('th')">🇹🇭 ไทย</button>
+      <button id="englishBtn" class="active" onclick="changeLanguage('en')">🇬🇧 English</button>
+    </div>
+
+    <!-- MAIN GAME SCREEN -->
+    <div id="gameScreen">
+
+      <div class="top">
+        <div class="heart" id="hearts">🩷🩷🩷</div>
+        <div class="level-badge" id="levelBadge">🏅 Level 1 / 5</div>
+        <div class="xp">⭐ <span id="xp">0</span> XP</div>
+      </div>
+
+      <div class="level-dots" id="levelDots"></div>
+
+      <div class="progress-box">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <div class="level-up-banner" id="levelUpBanner"></div>
+
+      <h1 id="title">Chinese Word Order</h1>
+      <p class="instruction" id="instruction">Click the words in the correct order.</p>
+
+      <!-- CHINESE QUESTION -->
+      <div class="question" id="question">你好</div>
+
+      <!-- PINYIN DISPLAY -->
+      <div 
+        class="pinyin" 
+        id="pinyin" 
+        onclick="revealChinese()" 
+        title="Click Pinyin to see Chinese">
+      </div>
+
+      <!-- AUDIO SPEAKER -->
+      <button class="speaker" onclick="speakCurrent()" title="Listen">🔊</button>
+
+      <!-- ANSWER CONSTRUCT AREA -->
+      <div class="answer-area empty" id="answerArea">Click the words below...</div>
+
+      <!-- WORD CHOICES -->
+      <div class="words" id="words"></div>
+
+      <!-- FEEDBACK MESSAGE -->
+      <div class="message" id="message"></div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="buttons">
+        <button class="action clear" onclick="clearAnswer()" id="clearBtn">↩ Clear</button>
+        <button class="action check" onclick="checkAnswer()" id="checkBtn">✓ Check Answer</button>
+      </div>
+
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="result" id="resultScreen">
+      <div class="result-icon">🎉</div>
+      <h2 id="resultTitle">Great Job!</h2>
+      <div class="score">
+        ⭐ XP: <strong id="finalXP">0</strong><br><br>
+        📝 Score: <strong id="finalScore">0</strong><br><br>
+        🏅 Highest Level Reached: <strong id="finalLevel">1</strong> / 5
+      </div>
+      <button class="play-again" onclick="playAgain()" id="playAgainBtn">🔄 Play Again</button>
+    </div>
+
+    <!-- TUTORIAL OVERLAY -->
+    <div class="tutorial-overlay" id="tutorialOverlay">
+      <div class="tutorial-card">
+        <div class="tutorial-icon" id="tutorialIcon">👋</div>
+        <div class="tutorial-title" id="tutorialTitle">How to Play</div>
+        <div class="tutorial-text" id="tutorialText">Learn how to answer the questions step by step.</div>
+        <div class="tutorial-step" id="tutorialStep">Step 1 / 4</div>
+        <button class="tutorial-btn" id="tutorialButton" onclick="tutorialNext()">Start Tutorial</button>
+        <button class="tutorial-skip" id="tutorialSkip" onclick="closeTutorial()">Skip Tutorial</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./wordle chinese.js"></script>
+</body>
+</html>
