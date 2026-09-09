@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chinese Word Order Game</title>
+  <link rel="stylesheet" href="./wordle chinese.css">
+  <style>
+    /* CSS จัดให้ตัวละครอยู่ด้านซ้ายมือและวางลงบนเส้นขอบของกล่องคำตอบพอดี */
+    .content-area {
+      position: relative;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .question-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      min-height: 120px;
+    }
+
+    .character-container {
+      position: absolute;
+      left: 0;
+      bottom: 60%;
+      width: 200px;
+      height: auto;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .character-container svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .answer-container {
+      position: relative;
+      width: 100%;
+    }
+
+    /* CSS Variable สำหรับ SVG Character */
+    :root {
+      --line:   #0d0f12;
+      --hair:   #18262f;
+      --red:    #d63a30;
+      --red-2:  #b92c26;
+      --gold:   #f0b429;
+      --skin:   #f8e1cd;
+      --blush:  #f0b28e;
+      --white:  #fdfcfa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game">
+
+    <!-- LANGUAGE SWITCHER -->
+    <div class="language">
+      <button id="thaiBtn" onclick="changeLanguage('th')">🇹🇭 ไทย</button>
+      <button id="englishBtn" class="active" onclick="changeLanguage('en')">🇬🇧 English</button>
+    </div>
+
+    <!-- MAIN GAME SCREEN -->
+    <div id="gameScreen">
+
+      <div class="top">
+        <div class="heart" id="hearts">🩷🩷🩷</div>
+        <div class="level-badge" id="levelBadge">🏅 Level 1 / 5</div>
+        <div class="xp">⭐ <span id="xp">0</span> XP</div>
+      </div>
+
+      <div class="level-dots" id="levelDots"></div>
+
+      <div class="progress-box">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <div class="level-up-banner" id="levelUpBanner"></div>
+
+      <h1 id="title">Chinese Word Order</h1>
+      <p class="instruction" id="instruction">Click the words in the correct order.</p>
+
+      <!-- CONTENT AREA -->
+      <div class="content-area">
+
+        <!-- QUESTION SECTION (อยู่ตรงกลาง) -->
+        <div class="question-section">
+          <!-- CHINESE QUESTION -->
+          <div class="question" id="question">你好</div>
+
+          <!-- PINYIN DISPLAY -->
+          <div 
+            class="pinyin" 
+            id="pinyin" 
+            onclick="revealChinese()" 
+            title="Click Pinyin to see Chinese">
+          </div>
+
+          <!-- AUDIO SPEAKER -->
+          <button class="speaker" onclick="speakCurrent()" title="Listen">🔊</button>
+        </div>
+
+        <!-- ANSWER CONTAINER WITH CHARACTER -->
+        <div class="answer-container">
+
+          <!-- CHARACTER SVG (วางไว้ด้านซ้ายเหนือกริตกล่องคำตอบ) -->
+          <div class="character-container">
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="โลโก้มาสคอตเด็กหญิงในชุดกี่เพ้าจีน">
+              <defs>
+                <clipPath id="bunL"><circle cx="150" cy="160" r="36"/></clipPath>
+                <clipPath id="bunR"><circle cx="362" cy="160" r="36"/></clipPath>
+              </defs>
+
+              <g stroke="var(--line)" stroke-width="9" stroke-linejoin="round" stroke-linecap="round">
+                <!-- คอ -->
+                <rect x="238" y="298" width="36" height="44" fill="var(--skin)"/>
+                
+                <!-- ตัวชุด -->
+                <path d="M214 334 C180 348 158 382 152 420 C150 428 156 433 165 433 L347 433 C356 433 362 428 360 420 C354 382 330 348 296 334 Z" fill="var(--red)"/>
+                <path d="M248 334 C274 348 298 372 316 402 L322 433 L165 433 C156 433 150 428 152 420 C158 382 180 348 214 334 Z" fill="var(--red-2)"/>
+                <path d="M252 341 C276 355 298 378 314 405" fill="none" stroke="var(--gold)" stroke-width="6"/>
+
+                <!-- กระดุมจีน -->
+                <circle cx="274" cy="346" r="6" fill="var(--gold)" stroke-width="5"/>
+                <circle cx="297" cy="370" r="6" fill="var(--gold)" stroke-width="5"/>
+
+                <!-- ขลิบทองชายล่าง -->
+                <path d="M158 414 L354 414 L360 420 C362 428 356 433 347 433 L165 433 C156 433 150 428 152 420 Z" fill="var(--gold)"/>
+
+                <!-- คอตั้งจีน -->
+                <path d="M228 340 C226 310 238 294 256 294 C274 294 286 310 284 340 Z" fill="var(--red)"/>
+                <path d="M236 336 C235 313 243 302 256 302 C269 302 277 313 276 336" fill="none" stroke="var(--gold)" stroke-width="5"/>
+                <circle cx="256" cy="316" r="6" fill="var(--gold)" stroke-width="5"/>
+
+                <!-- มวยผม -->
+                <circle cx="150" cy="160" r="36" fill="var(--hair)"/>
+                <g clip-path="url(#bunL)"><circle cx="172" cy="180" r="27" fill="var(--gold)" stroke="none"/></g>
+                <circle cx="150" cy="160" r="36" fill="none"/>
+
+                <circle cx="362" cy="160" r="36" fill="var(--hair)"/>
+                <g clip-path="url(#bunR)"><circle cx="340" cy="180" r="27" fill="var(--gold)" stroke="none"/></g>
+                <circle cx="362" cy="160" r="36" fill="none"/>
+
+                <!-- ผมด้านหลัง + ปอยข้าง -->
+                <path d="M256 118 C328 118 368 166 368 236 C368 290 357 330 345 353 C337 331 330 311 326 291 L186 291 C182 311 175 331 167 353 C155 330 144 290 144 236 C144 166 184 118 256 118 Z" fill="var(--hair)"/>
+
+                <!-- หู -->
+                <ellipse cx="169" cy="252" rx="17" ry="22" fill="var(--skin)"/>
+                <ellipse cx="343" cy="252" rx="17" ry="22" fill="var(--skin)"/>
+
+                <!-- ใบหน้า -->
+                <path d="M256 150 C305 150 345 181 345 238 C345 297 306 331 256 331 C206 331 167 297 167 238 C167 181 207 150 256 150 Z" fill="var(--skin)"/>
+
+                <!-- ผมหน้าม้า -->
+                <path d="M176 240 C173 168 210 130 256 130 C305 130 343 169 345 238 C337 223 323 209 307 201 C319 223 323 243 319 263 C301 233 273 215 241 209 C263 227 277 249 281 269 C259 237 225 221 197 223 C215 237 227 255 231 273 C217 247 195 238 176 240 Z" fill="var(--hair)"/>
+
+                <!-- ใบหน้า: รายละเอียด -->
+                <circle cx="192" cy="280" r="16" fill="var(--blush)" stroke="none"/>
+                <circle cx="320" cy="280" r="16" fill="var(--blush)" stroke="none"/>
+
+                <ellipse cx="222" cy="250" rx="24" ry="27" fill="var(--line)" stroke="none"/>
+                <ellipse cx="290" cy="250" rx="24" ry="27" fill="var(--line)" stroke="none"/>
+                <circle cx="214" cy="240" r="8" fill="var(--white)" stroke="none"/>
+                <circle cx="282" cy="240" r="8" fill="var(--white)" stroke="none"/>
+
+                <!-- ขนตา -->
+                <g fill="none" stroke-width="6">
+                  <path d="M200 232 L189 222"/><path d="M206 224 L199 213"/>
+                  <path d="M312 232 L323 222"/><path d="M306 224 L313 213"/>
+                </g>
+                <!-- คิ้ว -->
+                <g fill="none" stroke-width="5">
+                  <path d="M204 208 Q222 199 238 207"/>
+                  <path d="M308 208 Q290 199 274 207"/>
+                </g>
+
+                <circle cx="256" cy="266" r="5" fill="var(--blush)" stroke="none"/>
+                <path d="M240 288 Q256 306 272 288" fill="none" stroke-width="7"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- ANSWER CONSTRUCT AREA -->
+          <div class="answer-area empty" id="answerArea">Click the words below...</div>
+
+        </div>
+
+      </div>
+
+      <!-- WORD CHOICES -->
+      <div class="words" id="words"></div>
+
+      <!-- FEEDBACK MESSAGE -->
+      <div class="message" id="message"></div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="buttons">
+        <button class="action clear" onclick="clearAnswer()" id="clearBtn">↩ Clear</button>
+        <button class="action check" onclick="checkAnswer()" id="checkBtn">✓ Check Answer</button>
+      </div>
+
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div class="result" id="resultScreen">
+      <div class="result-icon">🎉</div>
+      <h2 id="resultTitle">Great Job!</h2>
+      <div class="score">
+        ⭐ XP: <strong id="finalXP">0</strong><br><br>
+        📝 Score: <strong id="finalScore">0</strong><br><br>
+        🏅 Highest Level Reached: <strong id="finalLevel">1</strong> / 5
+      </div>
+      <button class="play-again" onclick="playAgain()" id="playAgainBtn">🔄 Play Again</button>
+    </div>
+
+    <!-- TUTORIAL OVERLAY -->
+    <div class="tutorial-overlay" id="tutorialOverlay">
+      <div class="tutorial-card">
+        <div class="tutorial-icon" id="tutorialIcon">👋</div>
+        <div class="tutorial-title" id="tutorialTitle">How to Play</div>
+        <div class="tutorial-text" id="tutorialText">Learn how to answer the questions step by step.</div>
+        <div class="tutorial-step" id="tutorialStep">Step 1 / 4</div>
+        <button class="tutorial-btn" id="tutorialButton" onclick="tutorialNext()">Start Tutorial</button>
+        <button class="tutorial-skip" id="tutorialSkip" onclick="closeTutorial()">Skip Tutorial</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./wordle chinese.js"></script>
+</body>
+</html>
