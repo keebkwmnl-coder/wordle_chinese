@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>เกมฝึกความจำ — หน้าหลัก</title>
+<link rel="stylesheet" href="./css/home.css">
+</head>
+<body>
+
+<div class="app">
+  <div class="scenery" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="hill hill-far"></div>
+    <div class="hill hill-near"></div>
+  </div>
+
+  <div class="card-content">
+
+    <div class="language">
+      <span class="player-greeting" id="playerGreeting"></span>
+
+      <button id="thaiBtn" class="active" onclick="changeLanguage('th')"> ไทย</button>
+      <button id="englishBtn" onclick="changeLanguage('en')"> English</button>
+      <button onclick="logoutPlayer()" title="Log out"> Logout</button>
+    </div>
+
+    <!-- <div class="top">
+      <div class="heart">🩷🩷🩷</div>
+      <div class="level-badge" id="levelBadge">🏅 ด่าน 1 / 5</div>
+      <div class="xp">⭐ <span id="xp">0</span> XP</div>
+    </div> -->
+
+    <div class="hero">
+      <div class="speech-bubble" id="speechBubble">ฝึกสมองให้สดใสทุกวัน!</div>
+      <h1 id="appTitle">เกมฝึกความจำ</h1>
+      <p id="appSubtitle">เรียนรู้ภาษาจีน สนุก ได้สมอง</p>
+    </div>
+
+    <div class="couple-wrap">
+      <svg class="couple" viewBox="0 0 260 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of an elderly couple">
+        <!-- grandma -->
+        <ellipse cx="150" cy="178" rx="60" ry="10" fill="#000" opacity="0.05"/>
+        <path d="M150 190 C120 190 108 170 112 148 L188 148 C192 170 180 190 150 190Z" fill="#f4c96b"/>
+        <circle cx="150" cy="112" r="34" fill="#f6ddb8"/>
+        <path d="M118 108 C114 82 130 62 150 62 C170 62 186 82 182 108 C176 96 168 90 150 90 C132 90 124 96 118 108Z" fill="#e8e8e8"/>
+        <circle cx="140" cy="112" r="10" fill="none" stroke="#4a4a4a" stroke-width="2.5"/>
+        <circle cx="162" cy="112" r="10" fill="none" stroke="#4a4a4a" stroke-width="2.5"/>
+        <line x1="150" y1="112" x2="152" y2="112" stroke="#4a4a4a" stroke-width="2.5"/>
+        <path d="M133 128 Q150 138 167 128" fill="none" stroke="#b5673a" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="128" cy="118" r="5" fill="#f2a9a1" opacity="0.7"/>
+        <circle cx="172" cy="118" r="5" fill="#f2a9a1" opacity="0.7"/>
+
+        <!-- grandpa -->
+        <ellipse cx="90" cy="178" rx="55" ry="10" fill="#000" opacity="0.05"/>
+        <path d="M90 190 C62 190 50 168 55 145 L128 145 C132 168 118 190 90 190Z" fill="#5b7fbf"/>
+        <circle cx="88" cy="108" r="32" fill="#f6ddb8"/>
+        <path d="M60 100 C58 78 72 58 88 58 C104 58 118 78 116 100 C114 88 104 82 88 82 C72 82 62 88 60 100Z" fill="#8a8a8a"/>
+        <circle cx="78" cy="108" r="9" fill="none" stroke="#4a4a4a" stroke-width="2.5"/>
+        <circle cx="98" cy="108" r="9" fill="none" stroke="#4a4a4a" stroke-width="2.5"/>
+        <line x1="87" y1="108" x2="89" y2="108" stroke="#4a4a4a" stroke-width="2.5"/>
+        <path d="M74 123 Q88 130 102 123" fill="none" stroke="#b5673a" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="68" cy="114" r="4.5" fill="#f2a9a1" opacity="0.7"/>
+        <circle cx="108" cy="114" r="4.5" fill="#f2a9a1" opacity="0.7"/>
+
+        <!-- little heart between them -->
+        <path class="couple-heart" d="M118 138 c0-6 8-6 8 0 0-6 8-6 8 0 0 5-8 9-8 13-0-4-8-8-8-13Z" fill="#ea3d7f"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <div class="card-panel">
+    <div class="modes">
+      <button class="mode green" onclick="location.href='./index.html'">
+        <span class="icon">📝</span>
+        <span id="modeWordOrder">จัดเรียงคำ</span>
+        <span class="sub" id="modeWordOrderSub">(Word Order)</span>
+      </button>
+
+      <!-- Add more modes here when their pages exist, e.g.:
+      <button class="mode pink" onclick="location.href='./characters.html'">
+        <span class="icon">🀄</span>
+        <span id="modeCharacters">ตัวอักษร</span>
+        <span class="sub" id="modeCharactersSub">(Characters)</span>
+      </button>
+      -->
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        <span id="navHome">หน้าหลัก</span>
+      </button>
+      <button class="nav-item">
+        <span class="nav-icon">📊</span>
+        <span id="navStats">สถิติ</span>
+      </button>
+      <button class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span id="navSettings">ตั้งค่า</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="./js/lang.js"></script>
+<script src="./js/home.js"></script>
+
+</body>
+</html>
