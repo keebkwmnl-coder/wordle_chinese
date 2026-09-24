@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Trebuchet MS', Arial, sans-serif;
+
+            min-height: 100vh;
+
+            background: #f2f6ff;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .settings {
+            width: 90%;
+            max-width: 500px;
+
+            background: #ffffff;
+
+            padding: 32px;
+
+            border-radius: 24px;
+
+            border: 2px solid #e5e9f7;
+
+            box-shadow: 0 12px 0 rgba(0,0,0,0.05), 0 12px 30px rgba(91,101,232,0.12);
+        }
+
+        .settings h1 {
+            margin: 0 0 28px;
+
+            color: #8549ff;
+
+            font-size: 26px;
+
+            text-align: center;
+
+            letter-spacing: 0.3px;
+        }
+
+        .setting-item {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 16px;
+
+            padding: 18px 4px;
+
+            border-bottom: 2px solid #f0f1fb;
+        }
+
+        .setting-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .setting-item h3 {
+            margin: 0 0 4px;
+
+            color: #3c3c48;
+
+            font-size: 16px;
+        }
+
+        .setting-item p {
+            margin: 0;
+
+            color: #9a9aab;
+
+            font-size: 13px;
+        }
+
+        select {
+            padding: 10px 16px;
+
+            border: 2px solid #e5e9f7;
+
+            border-radius: 14px;
+
+            background: #f7f8ff;
+
+            color: #4a4a58;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+
+        select:hover,
+        select:focus {
+            border-color: #a78bfa;
+            background: #f0ecff;
+            outline: none;
+        }
+
+        .back-btn {
+            width: 100%;
+
+            margin-top: 28px;
+
+            padding: 14px;
+
+            border: none;
+            border-bottom: 4px solid #45a302;
+
+            border-radius: 14px;
+
+            background: #58cc02;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            cursor: pointer;
+
+            transition: transform 0.05s ease, background 0.15s ease;
+        }
+
+        .back-btn:hover {
+            background: #4fb802;
+        }
+
+        .back-btn:active {
+            transform: translateY(3px);
+            border-bottom-width: 1px;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+
+            border: none;
+            border-bottom: 4px solid #c62828;
+
+            border-radius: 14px;
+
+            background: #ff4b4b;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+
+            cursor: pointer;
+
+            transition: transform 0.05s ease, background 0.15s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff3333;
+        }
+
+        .logout-btn:active {
+            transform: translateY(3px);
+            border-bottom-width: 1px;
+        }
+
+        /* ---------- bottom nav — same look as home.html (home.css) ---------- */
+        .bottom-nav{
+            display:flex;
+            justify-content:space-around;
+            align-items:center;
+            margin-top:28px;
+            padding-top:14px;
+            border-top:1.5px solid #eef1f6;
+        }
+
+        .nav-item{
+            position:relative;
+            background:none;
+            border:none;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap:4px;
+            padding:4px 10px 8px;
+            font-size:11px;
+            font-weight:700;
+            color:#6b7a93;
+            cursor:pointer;
+            transition:color 0.2s ease;
+        }
+        .nav-item .nav-icon{
+            width:38px;
+            height:38px;
+            border-radius:14px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:16px;
+            background:#f1f5f9;
+            transition:transform 0.22s cubic-bezier(.3,1.6,.5,1), box-shadow 0.22s ease, background 0.2s ease;
+        }
+        .nav-item.active{ color:#1f3f8f; }
+        .nav-item.active .nav-icon{
+            background:linear-gradient(135deg,#1f3f8f,#3b6de0);
+            color:#fff;
+            box-shadow:0 8px 14px -8px rgba(31,63,143,.75);
+        }
+
+
+        .nav-item:active .nav-icon{ transform:scale(.9); transition-duration:.06s; }
+    </style>
+</head>
+
+<body>
+
+    <div class="settings">
+
+        <h1 id="settingsTitle">⚙️ Settings</h1>
+
+        <div class="setting-item">
+
+            <div>
+                <h3 id="languageLabel">🌐 Language</h3>
+                <p id="languageDesc">Choose your language</p>
+            </div>
+
+            <select id="language">
+                <option value="en">English</option>
+                <option value="th">ไทย</option>
+            </select>
+
+        </div>
+
+        <div class="setting-item">
+
+            <div>
+                <h3 id="accountLabel">👤 Account</h3>
+                <p id="accountDesc">Manage your session</p>
+            </div>
+
+            <button class="logout-btn" id="logoutBtn" onclick="logoutPlayer()">Logout</button>
+
+        </div>
+
+
+        <button class="back-btn" id="backBtn" onclick="goBack()">← Back</button>
+
+        <div class="bottom-nav">
+            <button class="nav-item" id="navHomeBtn">
+                <span class="nav-icon">🏠</span>
+                <span id="navHome">หน้าหลัก</span>
+            </button>
+            <button class="nav-item active" id="navSettingsBtn">
+                <span class="nav-icon">⚙️</span>
+                <span id="navSettings">ตั้งค่า</span>
+            </button>
+        </div>
+
+    </div>
+
+    <script src="./js/lang.js"></script>
+    <script>
+
+        const settingsTranslations = {
+            th: {
+                settingsTitle: "⚙️ ตั้งค่า",
+                languageLabel: "🌐 ภาษา",
+                languageDesc: "เลือกภาษาของคุณ",
+                accountLabel: "👤 บัญชี",
+                accountDesc: "จัดการเซสชันของคุณ",
+                logoutBtn: "ออกจากระบบ",
+                backBtn: "← กลับ",
+                navHome: "หน้าหลัก",
+                navSettings: "ตั้งค่า"
+            },
+            en: {
+                settingsTitle: "⚙️ Settings",
+                languageLabel: "🌐 Language",
+                languageDesc: "Choose your language",
+                accountLabel: "👤 Account",
+                accountDesc: "Manage your session",
+                logoutBtn: "Logout",
+                backBtn: "← Back",
+                navHome: "Home",
+                navSettings: "Settings"
+            }
+        };
+
+        const languageSelect = document.getElementById("language");
+
+        function applySettingsLang(lang) {
+            const t = settingsTranslations[lang] || settingsTranslations.th;
+            document.getElementById("settingsTitle").textContent = t.settingsTitle;
+            document.getElementById("languageLabel").textContent = t.languageLabel;
+            document.getElementById("languageDesc").textContent = t.languageDesc;
+            document.getElementById("accountLabel").textContent = t.accountLabel;
+            document.getElementById("accountDesc").textContent = t.accountDesc;
+            document.getElementById("logoutBtn").textContent = t.logoutBtn;
+            document.getElementById("backBtn").textContent = t.backBtn;
+            document.getElementById("navHome").textContent = t.navHome;
+            document.getElementById("navSettings").textContent = t.navSettings;
+            languageSelect.value = lang;
+        }
+
+        // Load the APP-WIDE language (shared key from lang.js), not a
+        // private "language" key — so this reflects whatever was set
+        // anywhere else in the app (home page, login, etc).
+        applySettingsLang(getAppLang());
+
+        // Changing it here updates the shared key immediately, so every
+        // other page picks it up next time it loads.
+        languageSelect.addEventListener("change", function () {
+            const lang = setAppLang(languageSelect.value);
+            applySettingsLang(lang);
+        });
+
+        // Back button — goes to the home page
+        function goBack() {
+            window.location.href = "./home.html";
+        }
+
+        // Logout — same behavior as home.js's logoutPlayer(): clear the
+        // session keys and send the player back to the login page.
+        function logoutPlayer() {
+            localStorage.removeItem("chineseWordLoggedIn");
+            localStorage.removeItem("chineseWordPlayerName");
+            localStorage.removeItem("chineseWordPlayerEmail");
+            window.location.href = "./index.html";
+        } 
+
+        // Live-update if the language changes on another already-open
+        // tab/page. applySettingsLang() only repaints text — it never
+        // calls setAppLang — so this can't create a feedback loop.
+        window.addEventListener(APP_LANG_EVENT, function (e) {
+            applySettingsLang(e.detail);
+        });
+
+        // Bottom-nav: Settings is already active (this page).
+        document.getElementById("navHomeBtn").addEventListener("click", function () {
+            window.location.href = "./home.html";
+        });
+        // navSettingsBtn is this page — no click handler needed.
+
+    </script>
+
+</body>
+</html>

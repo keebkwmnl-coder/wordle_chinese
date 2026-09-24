@@ -1,0 +1,19 @@
+{
+  "name": "chinese-word-order",
+  "version": "1.0.0",
+  "description": "Chinese Word Order Learning Game",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "chinese",
+    "learning",
+    "game",
+    "pinyin"
+  ],
+  "author": "Kengkue LEE",
+  "license": "ISC",
+  "type": "commonjs"
+}
